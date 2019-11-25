@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO 程序</title>
+    <link rel="stylesheet" href="/static?file=todo.css">
+</head>
+<body>
+<section class="todoapp">
+    <header class="header">
+        <h1>TODO</h1>
+        <form action="/todo/add" method="post">
+            <label for="new-todo"></label>
+            <input id="new-todo" class="new-todo" name="title" placeholder="请输入todo" autofocus>
+        </form>
+    </header>
+    <section class="main">
+        <form action="/todo/complete/all" method="get">
+            <button>
+                <input id="toggle-all" class="toggle-all" type="checkbox">
+                <label for="toggle-all">点击完成所有 todo</label>
+            </button>
+        </form>
+        <ul class="todo-list">
+            {% for todo in todos %}
+                <li class="{% if todo.completed %}completed{% endif %}">
+                    <div class="view">
+                        <form class="toggle {% if todo.completed %}checked{% endif %}" action="/todo/complete" method="get">
+                            <input type="hidden" name="id" value="{{ todo.id }}">
+                            <button></button>
+                        </form>
+                        <form class="title" action="/todo/update" method="post">
+                            <input type="hidden" name="id" value="{{ todo.id }}">
+                            <input type="text" name="title" value="{{ todo.title }}">
+                        </form>
+                        <form action="/todo/delete" method="get">
+                            <input type="hidden" name="id" value="{{ todo.id }}">
+                            <button class="destroy"></button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </section>
+    <footer class="footer">
+        <span class="todo-count">还有 {{ uncompleted }} 任务未完成</span>
+        <ul class="filters">
+            <li>
+                <a href="/todo"
+                   {% if active_index == 'index' %}class="selected"{% endif %}
+                >所有</a>
+            </li>
+            <li>
+                <a href="/todo?completed=false"
+                   {% if active_index == 'uncompleted' %}class="selected"{% endif %}
+                >未完成</a>
+            </li>
+            <li>
+                <a href="/todo?completed=true"
+                   {% if active_index == 'completed' %}class="selected"{% endif %}
+                >已完成</a>
+            </li>
+        </ul>
+        <form action="/todo/clear" method="get">
+            <button class="clear-completed">清除已完成任务</button>
+        </form>
+    </footer>
+</section>
+
+<footer class="info">
+    <p>在最上方输入 todo</p>
+    <p>点击向下箭头完成所有 todo</p>
+    <p>点击编辑 todo</p>
+    <p>悬浮在 todo 上并点击 x 删除 todo</p>
+    <p>xxxx 为您呈现</p>
+</footer>
+</body>
+</html>
+

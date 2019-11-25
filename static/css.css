@@ -1,0 +1,110 @@
+/*button {*/
+    /*display: inline-block;*/
+    /*padding: 100px;*/
+/*}*/
+
+#id-h1 {
+    background: red;
+    display: inline;
+}
+.gua-h1 {
+    background: brown;
+}
+
+h1 {
+    background: yellow;
+}
+
+.gua-square {
+    /* color: red;
+    position: relative;
+    top: -10px;
+    left: -5px; */
+    position: relative;
+    top: -10px;
+    left: -5px;
+    color: red;
+}
+
+div {
+    outline: 1px red dashed;
+}
+
+.gua-absolute {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: green;
+}
+
+.gua-relative {
+    color: red;
+    position: relative;
+    height: 100px;
+}
+
+
+.gua-fixed {
+    position: fixed;
+    background: blue;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+}
+
+.gua-box {
+    width: 100px;
+    height: 100px;
+    overflow: scroll;
+    padding: 10px 10px 10px 10px;
+    border: 10px red solid;
+    /* outline: 10px red solid; */
+    margin: 20px;
+}
+
+.gua-big-box {
+    border: 10px red solid;
+}
+
+body {
+    /*background-color: chartreuse;*/
+     background-image: url(doge.gif);
+     background-repeat: no-repeat;
+}
+
+
+.gua-right {
+    float: right;
+}
+
+.gua-left {
+    float: left;
+}
+
+.gua-center-block {
+    margin: 0 auto;
+}
+
+
+.gua-center-inline {
+    text-align: center;
+}
+
+.gua-vertical-center {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.gua-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+
+}
+
+.gua-staic {
+    height: 200px;
+}
+

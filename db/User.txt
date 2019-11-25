@@ -1,0 +1,10 @@
+[
+  {
+    "id": 0,
+    "username": "gua",
+    "password": "c9b1b035ef735019fe7b120c4716c7595196ddef56a10d04c686017db9472397",
+    "role": {
+      "__enum__": "normal"
+    }
+  }
+]

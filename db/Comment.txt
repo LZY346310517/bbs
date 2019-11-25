@@ -1,0 +1,8 @@
+[
+  {
+    "id": 0,
+    "content": "comment",
+    "user_id": 1,
+    "weibo_id": 0
+  }
+]

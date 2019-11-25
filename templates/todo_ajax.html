@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>web 9 js todo</title>
+    <link rel="stylesheet" href="/static?file=todo.css">
+</head>
+<body>
+<!--<input type="text" id="id-input-todo">-->
+<!--<button id="id-button-add">添加 <tod></tod>o</button>-->
+
+<!--<div id="id-todo-list">-->
+<!--</div>-->
+
+<section class="todoapp">
+    <header class="header">
+        <h1>todos</h1>
+        <input id="id-button-add" class="new-todo" placeholder="添加" autofocus>
+    </header>
+    <section class="main">
+        <input id="toggle-all" class="toggle-all" type="checkbox">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul id="id-todo-list" class="todo-list">
+
+        </ul>
+        <footer class="footer">
+            <span class="todo-count"></span>
+            <ul class="filters">
+                <li>
+                    <a href="#/" class="selected">All</a>
+                </li>
+                <li>
+                    <a href="#/active">Active</a>
+                </li>
+                <li>
+                    <a href="#/completed">Completed</a>
+                </li>
+            </ul>
+            <button class="clear-completed">Clear completed</button>
+        </footer>
+    </section>
+</section>
+<footer class="info">
+    <p>Double-click to edit a todo</p>
+    <p>Written by <a href="http://twitter.com/lukeed05">Luke Edwards</a></p>
+    <p>Refactored by <a href="https://github.com/xorgy">Aaron Muir Hamilton</a></p>
+    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+</footer>
+
+
+<!--<script src="/static?file=gua.js"></script>-->
+<!--<script src="/static?file=todo.js"></script>-->
+<script>
+    var log = console.log.bind(console)
+
+    var e = function (selector, parent = document) {
+        return parent.querySelector(selector)
+    }
+
+    /*
+     ajax 函数
+    */
+    var ajax = function (method, path, data, responseCallback) {
+        log('ajax request', method, path, data, responseCallback)
+        var r = new XMLHttpRequest()
+        // 设置请求方法和请求地址
+        r.open(method, path, true)
+        // 设置发送的数据的格式为 application/json
+        // 这个不是必须的
+        r.setRequestHeader('Content-Type', 'application/json')
+        // 注册响应函数
+
+        r.onreadystatechange = function () {
+            if (r.readyState === 4) {
+                // r.response 存的就是服务器发过来的放在 HTTP BODY 中的数据
+                log('ajax response', r.response)
+                var json = JSON.parse(r.response)
+                responseCallback(json)
+                // responseCallback(r.response)
+            }
+        }
+        // 把数据转换为 json 格式字符串
+        data = JSON.stringify(data)
+        // 发送请求
+        r.send(data)
+    }
+
+    // result = ajax()
+    // console.log(result)
+    // ajax(function(result) {
+    //     console.log(result)
+    // })
+    var todoTemplate = function (todo) {
+        // var t = `
+        // <div class="todo-cell">
+        //     <span>${todo}</span>
+        // </div>
+        var t = `
+            <li>
+                <div class="view">
+                    <input class="toggle" type="checkbox">
+                    <label>${todo}</label>
+                    <button class="destroy"></button>
+                </div>
+            </li>
+        `
+        /*
+        t = """
+        <div class="todo-cell">
+            <span>{}</span>
+        </div>
+        """.format(todo)
+         */
+        return t
+    }
+
+    /*
+    1. 给 add button 绑定事件
+    2. 在事件处理函数中，获取 input 的值
+    3. 用获取的值，组装一个 todo-cell HTML 字符串
+    4. 插入 todo-list 中
+    */
+
+    var insertTodo = function (todoCell) {
+        var form = document.querySelector('#id-todo-list')
+        form.insertAdjacentHTML('beforeEnd', todoCell)
+    }
+
+
+    var test = function () {
+        log('request 之前')
+        // ajax('get', '/', '', function (result) {
+        //     console.log(result)
+        // })
+        log('request 之后')
+    }
+
+    var bindInsert = function () {
+        var b = e('#id-button-add')
+        b.addEventListener('click', function () {
+            log('click')
+            var input = e('#id-input-todo')
+            log('html 元素', input)
+            log('输入框值', input.value)
+            var todo = input.value
+            var todoCell = todoTemplate(todo)
+            log(todoCell)
+            insertTodo(todoCell)
+        })
+    }
+
+    var loadAll = function () {
+        ajax('get', '/ajax/all', '', function (todos) {
+            log('todos', todos)
+            for (let i = 0; i < todos.length; i++) {
+                log('todo', todos[i])
+                let todoCell = todoTemplate(todos[i].title)
+                insertTodo(todoCell)
+            }
+        })
+    }
+
+    var main = function () {
+        test()
+        loadAll()
+        // bindInsert()
+    }
+
+    main()
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>weibo</title>
+    <style>
+        .comment {
+            border: 1px red solid;
+        }
+    </style>
+</head>
+<body>
+<h1>{{ user.username }} 的时间线</h1>
+
+{% for w in weibos %}
+    <p>
+        {{ w.content }} from {{ w.user().username }}
+        <a href="/weibo/delete?weibo_id={{ w.id }}">删除</a>
+        <a href="/weibo/edit?weibo_id={{ w.id }}">修改</a>
+        {% for c in w.comments() %}
+            <div class="comment">
+                {{ c.user().username }} : {{ c.content }}
+            </div>
+        {% endfor %}
+    </p>
+{% endfor %}
+</body>
+</html>
